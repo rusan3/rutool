@@ -4,6 +4,7 @@ comp/
 data/
 hist/
 images/
+input_table/
 latent/
 latentdata/
 logs/
