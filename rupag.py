@@ -82,19 +82,22 @@ class Autogui:
     # ディレイ・画像反応待ち（グルグル参照）
     def delay(self):
         print('%20s' % ('Delay/Image |'), self.delaytime,
-              'sec :', 'images/' + self.image)
+              'sec :', 'images/' + self.image, end=' ')
         pos = None
         start = time.time()
         while time.time()-start <= self.delaytime:
             pos = pag.locateOnScreen('images/'+self.image,
-                                     grayscale=True, confidence=0.3)
+                                     grayscale=True, confidence=0.35)
+            print('', pos, end='|')
             if pos is None:
                 self.wait(fromdelay=1)
                 continue
+            print('')
             break
         if pos is None:
-            # print('Not Found...')    ####
+            print('==>> Not Found... Quit')
             quit()
+        # pos = None
 
     # ディレイ・プログレッシブバー
     def pbar(self):
@@ -153,7 +156,7 @@ if __name__ == "__main__":
 
     # CSV input 実施例
     print('input arg :', sys.argv[1])
-    intable = pd.read_csv('input_table/' + sys.argv[1], index_col=0)
+    intable = pd.read_csv('input_table/'+sys.argv[1], index_col=0)
     start = time.time()
 
     for i in intable.index:
