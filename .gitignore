@@ -1,3 +1,24 @@
+# directory
+basedata/
+comp/
+data/
+hist/
+images/
+# input_table/
+latent/
+latentdata/
+logs/
+loss/
+lossdata/
+model/
+pred/
+result/
+weights/
+
+
+### template ###
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
