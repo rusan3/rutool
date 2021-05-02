@@ -87,17 +87,15 @@ class Autogui:
         start = time.time()
         while time.time()-start <= self.delaytime:
             pos = pag.locateOnScreen('images/'+self.image,
-                                     grayscale=True, confidence=0.35)
-            print('', pos, end='|')
+                                     grayscale=True, confidence=0.5)
             if pos is None:
                 self.wait(fromdelay=1)
                 continue
-            print('')
+            print(pos)
             break
         if pos is None:
             print('==>> Not Found... Quit')
             quit()
-        # pos = None
 
     # ディレイ・プログレッシブバー
     def pbar(self):
