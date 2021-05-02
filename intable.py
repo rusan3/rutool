@@ -1,5 +1,6 @@
 from rupag import Autogui
 import sys
+import os
 import pandas as pd
 import time
 import math
@@ -8,8 +9,16 @@ import math
 if __name__ == "__main__":
 
     # CSV input 実施例
-    print('input arg :', sys.argv[1])
-    intable = pd.read_csv('input_table/'+sys.argv[1], index_col=0)
+    print('')
+    try:
+        print('   input arg :', sys.argv[1])
+        csvname = sys.argv[1]
+    except:
+        csvname = str(os.path.basename(__file__)[
+                      :os.path.basename(__file__).rfind('.py')]) + '.csv'
+        print('   input csv :', csvname)
+    print('')
+    intable = pd.read_csv('input_table/'+csvname, index_col=0)
     start = time.time()
 
     for i in intable.index:
