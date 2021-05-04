@@ -6,7 +6,7 @@ import time
 import math
 
 
-if __name__ == "__main__":
+def rupag_csv():
 
     # CSV input 実施例
     print('')
@@ -65,3 +65,8 @@ if __name__ == "__main__":
     print('')
     print('Total time :', round(time.time()-start, 2), 'sec')
     print('')
+
+
+if __name__ == "__main__":
+
+    rupag_csv()
