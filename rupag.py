@@ -36,13 +36,27 @@ class Autogui:
 
     # マウス・移動
     def move(self):
-        print('%20s' % ('Pointer Move |'), f'{self.x, self.y}')
+        try:
+            pos = pag.locateOnScreen('images/'+self.image,
+                                     grayscale=True, confidence=0.75)
+            self.x, self.y = pag.center(pos)
+            print('%20s' % ('Pointer Move |'),
+                  f'{self.x, self.y},', 'images/' + self.image)
+        except:
+            print('%20s' % ('Pointer Move |'), f'{self.x, self.y}')
         time.sleep(self.interval)
         pag.moveTo(self.x, self.y, duration=self.duration)
 
-    # マウス・クリック
+    # マウス・左クリック
     def click(self):
-        print('%20s' % ('Click Left |'), f'{self.x, self.y}')
+        try:
+            pos = pag.locateOnScreen('images/'+self.image,
+                                     grayscale=True, confidence=0.75)
+            self.x, self.y = pag.center(pos)
+            print('%20s' % ('Click Left |'),
+                  f'{self.x, self.y},', 'images/' + self.image)
+        except:
+            print('%20s' % ('Click Left |'), f'{self.x, self.y}')
         time.sleep(self.interval)
         pag.click(self.x, self.y, duration=self.duration)
 
@@ -76,7 +90,7 @@ class Autogui:
                 pag.moveTo(r*math.cos(math.radians(fai+delta*i*lr))+c_x,
                            r*math.sin(math.radians(fai+delta*i*lr))+c_y,
                            duration=0.05)
-            time.sleep(1)
+            time.sleep(0.5)
         pag.moveTo(c_x, c_y-150, duration=0.05)
 
     # ディレイ・画像反応待ち（グルグル参照）
@@ -87,11 +101,10 @@ class Autogui:
         start = time.time()
         while time.time()-start <= self.delaytime:
             pos = pag.locateOnScreen('images/'+self.image,
-                                     grayscale=True, confidence=0.5)
+                                     grayscale=True, confidence=0.75)
             if pos is None:
                 self.wait(fromdelay=1)
                 continue
-            print(pos)
             break
         if pos is None:
             print('==>> Not Found... Quit')
@@ -112,7 +125,7 @@ class Autogui:
         print('')
 
 
-if __name__ == "__main__":
+def rupag():
 
     # class 実施例
     start = time.time()
@@ -136,3 +149,14 @@ if __name__ == "__main__":
     print('')
     print('Total time :', round(time.time()-start, 2), 'sec')
     print('')
+
+
+def demo1():
+    gui = Autogui(500, 500, image='chrome.png').move()
+    gui = Autogui(500, 500, image='chrome.png').click()
+
+
+if __name__ == "__main__":
+
+    rupag()
+    # demo1()
