@@ -156,7 +156,9 @@ def rupag():
 
     print('')
     print('Total time :', round(time.time()-start, 2), 'sec')
+    print('Hold the result for 5 minutes...   - Press "Ctrl + C" to exit. -')
     print('')
+    time.sleep(300)
 
 
 def demo1():
@@ -166,9 +168,17 @@ def demo1():
     print('   |', 'PyAutoGUI : ', pag.__version__)
     print('')
 
+    start = time.time()
+
     gui = Autogui(interval=2, write='test menu').pbar()
     gui = Autogui(500, 500, image='chrome.png').move()
     gui = Autogui(500, 500, image='chrome.png').click()
+
+    print('')
+    print('Total time :', round(time.time()-start, 2), 'sec')
+    print('Hold the result for 5 minutes...   - Press "Ctrl + C" to exit. -')
+    print('')
+    time.sleep(300)
 
 
 if __name__ == "__main__":

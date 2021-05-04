@@ -68,7 +68,9 @@ def rupag_csv():
 
     print('')
     print('Total time :', round(time.time()-start, 2), 'sec')
+    print('Hold the result for 5 minutes...   - Press "Ctrl + C" to exit. -')
     print('')
+    time.sleep(300)
 
 
 if __name__ == "__main__":
