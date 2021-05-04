@@ -105,6 +105,7 @@ class Autogui:
             if pos is None:
                 self.wait(fromdelay=1)
                 continue
+            print('==>> OK! ', round(time.time()-start, 2), 'sec')
             break
         if pos is None:
             print('==>> Not Found... Quit')
@@ -127,10 +128,14 @@ class Autogui:
 
 def rupag():
 
+    print('')
+    print('   |', sys.version)
+    print('   |', 'PyAutoGUI : ', pag.__version__)
+
     # class 実施例
     start = time.time()
 
-    gui = Autogui(interval=1).pbar()
+    gui = Autogui(interval=3).pbar()
     gui = Autogui(500, 500).move()
     gui = Autogui(500, 600).move()
     gui = Autogui(600, 500).move()
@@ -152,11 +157,17 @@ def rupag():
 
 
 def demo1():
+
+    print('')
+    print('   |', sys.version)
+    print('   |', 'PyAutoGUI : ', pag.__version__)
+
+    gui = Autogui(interval=3).pbar()
     gui = Autogui(500, 500, image='chrome.png').move()
     gui = Autogui(500, 500, image='chrome.png').click()
 
 
 if __name__ == "__main__":
 
-    rupag()
-    # demo1()
+    # rupag()
+    demo1()
