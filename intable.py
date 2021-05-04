@@ -10,17 +10,17 @@ import math
 def rupag_csv():
 
     print('')
-    print('   |', sys.version)
+    print('   |', 'Python    : ', sys.version)
     print('   |', 'PyAutoGUI : ', pag.__version__)
 
     # CSV input 実施例
     try:
-        print('   | input arg :', sys.argv[1])
+        print('   | input arg : ', sys.argv[1])
         csvname = sys.argv[1]
     except:
         csvname = str(os.path.basename(__file__)[
                       :os.path.basename(__file__).rfind('.py')]) + '.csv'
-        print('   | input csv :', csvname)
+        print('   | input csv : ', csvname)
     print('')
     intable = pd.read_csv('input_table/'+csvname, index_col=0)
     start = time.time()
