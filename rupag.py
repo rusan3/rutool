@@ -90,8 +90,9 @@ class Autogui:
                 pag.moveTo(r*math.cos(math.radians(fai+delta*i*lr))+c_x,
                            r*math.sin(math.radians(fai+delta*i*lr))+c_y,
                            duration=0.05)
+                if time.time()-start >= self.interval:
+                    break
             time.sleep(0.5)
-        pag.moveTo(c_x, c_y-150, duration=0.05)
 
     # ディレイ・画像反応待ち（グルグル参照）
     def delay(self):
@@ -105,12 +106,13 @@ class Autogui:
             if pos is None:
                 self.wait(fromdelay=1)
                 continue
+            print('==>> OK! ', round(time.time()-start, 2), 'sec')
             break
         if pos is None:
             print('==>> Not Found... Quit')
             quit()
 
-    # ディレイ・プログレッシブバー
+    # ディレイ・プログレスバー
     def pbar(self):
         for i in range(0, 10):
             if i != 9:
@@ -123,14 +125,20 @@ class Autogui:
                                                   self.interval), end='')
             time.sleep(self.interval/10)
         print('')
+        print('%20s' % ('Progress Bar |'), f'{self.write}')
 
 
 def rupag():
 
+    print('')
+    print('   |', 'Python    : ', sys.version)
+    print('   |', 'PyAutoGUI : ', pag.__version__)
+    print('')
+
     # class 実施例
     start = time.time()
 
-    gui = Autogui(interval=1).pbar()
+    gui = Autogui(interval=2, write='test menu').pbar()
     gui = Autogui(500, 500).move()
     gui = Autogui(500, 600).move()
     gui = Autogui(600, 500).move()
@@ -140,7 +148,7 @@ def rupag():
     gui = Autogui(700, 600).click()
     gui = Autogui(
         path='C:\Program Files\Google\Chrome\Application\chrome.exe').do_exe()
-    gui = Autogui(interval=3).wait()
+    gui = Autogui(interval=2).wait()
     gui = Autogui(delaytime=30, interval=3, image='chrome.png').delay()
     gui = Autogui(hk1='Altleft', hk2='f4').hotkey()
     gui = Autogui(700, 600).click()
@@ -152,6 +160,13 @@ def rupag():
 
 
 def demo1():
+
+    print('')
+    print('   |', 'Python    : ', sys.version)
+    print('   |', 'PyAutoGUI : ', pag.__version__)
+    print('')
+
+    gui = Autogui(interval=2, write='test menu').pbar()
     gui = Autogui(500, 500, image='chrome.png').move()
     gui = Autogui(500, 500, image='chrome.png').click()
 
