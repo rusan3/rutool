@@ -16,8 +16,8 @@ result/
 weights/
 
 # specific Python files and their related files
-_hm.py
-_hm.bat
+*_hm.py
+*_hm.bat
 
 ### template ###
 
