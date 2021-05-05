@@ -10,7 +10,6 @@ import math
 def rupag_csv():
 
     Autogui().do_start()
-
     # CSV input 実施例
     try:
         print('   | input arg : ', sys.argv[1])
@@ -64,7 +63,7 @@ def rupag_csv():
         if in_func == 'pbar':
             gui.pbar()
 
-    Autogui().do_end()
+    Autogui(end_delay=300).do_end()
 
 
 if __name__ == "__main__":
