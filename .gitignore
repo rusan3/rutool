@@ -15,6 +15,9 @@ pred/
 result/
 weights/
 
+# specific Python files and their related files
+_hm.py
+_hm.bat
 
 ### template ###
 

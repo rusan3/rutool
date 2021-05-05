@@ -9,14 +9,8 @@ import math
 
 def rupag_base():
 
-    print('')
-    print('   |', 'Python    : ', sys.version)
-    print('   |', 'PyAutoGUI : ', pag.__version__)
-    print('')
-
-    start = time.time()
-
-    # ↓ ↓ ↓ 以下を 自由に 書き直してください ↓ ↓ ↓
+    Autogui().do_start()
+    # ↓ ↓ ↓ 以下を 自由に 書き直してください  ↓ ↓ ↓
 
     gui = Autogui(interval=2, write='test menu').pbar()
     gui = Autogui(500, 500).move()
@@ -34,13 +28,8 @@ def rupag_base():
     gui = Autogui(700, 600).click()
     gui = Autogui(write='qwertyuiop').keybord()
 
-    # ↑ ↑ ↑ ここまで ↑ ↑ ↑
-
-    print('')
-    print('Total time :', round(time.time()-start, 2), 'sec')
-    print('Hold the result for 5 minutes...   - Press "Ctrl + C" to exit. -')
-    print('')
-    time.sleep(300)
+    # ↑ ↑ ↑ ここまで  ↑ ↑ ↑
+    Autogui(end_delay=300).do_end()
 
 
 if __name__ == "__main__":
