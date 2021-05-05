@@ -1,16 +1,16 @@
-,func,x,y,duration,interval,write,hk1,hk2,hk3,hk4,path,image,delaytime
-0,function,100,100,0.5,0.5,abcde,Ctrlleft,c,+,-,C:\aaa.exe,abcdef.png,120
-1,pbar,,,0,2,test menu,,,,,,,
-2,move,500,500,,,,,,,,,,
-3,move,500,600,,,,,,,,,,
-4,move,600,500,,,,,,,,,,
-5,move,600,600,,,,,,,,,,
-6,move,700,500,,,,,,,,,,
-7,move,700,600,,,,,,,,,,
-8,click,700,600,,,,,,,,,,
-9,do_exe,,,,,,,,,,C:\Program Files\Google\Chrome\Application\chrome.exe,,
-10,wait,,,,1.5,,,,,,,,
-11,delay,,,,,,,,,,,chrome.png,30
-12,hotkey,,,,,,Altleft,f4,,,,,
-13,click,700,600,,,,,,,,,,
-14,keybord,,,,,qwertyuiop,,,,,,,
+,func,x,y,duration,interval,write,hk1,hk2,hk3,hk4,path,image,delaytime,end_delay,confidence
+0,function,100,100,0.5,0.5,abcde,Ctrlleft,c,+,-,C:\aaa.exe,abcdef.png,120,300,0.75
+1,pbar,,,0,2,test menu,,,,,,,,,
+2,move,500,500,,,,,,,,,,,,
+3,move,500,600,,,,,,,,,,,,
+4,move,600,500,,,,,,,,,,,,
+5,move,600,600,,,,,,,,,,,,
+6,move,700,500,,,,,,,,,,,,
+7,move,700,600,,,,,,,,,,,,
+8,click,700,600,,,,,,,,,,,,
+9,do_exe,,,,,,,,,,C:\Program Files\Google\Chrome\Application\chrome.exe,,,,
+10,wait,,,,2,,,,,,,,,,
+11,delay,,,,,,,,,,,chrome.png,30,,
+12,hotkey,,,,,,Altleft,f4,,,,,,,
+13,click,700,600,,,,,,,,,,,,
+14,keybord,,,,,qwertyuiop,,,,,,,,,

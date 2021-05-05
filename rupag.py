@@ -18,9 +18,9 @@ class Autogui:
     '''
 
     # 初期化
-    def __init__(self, x=100, y=100, duration=0.2, interval=0.2,
-                 write='', hk1='', hk2='', hk3='', hk4='', path='',
-                 image='', delaytime=120, start_time=time.time(), end_delay=0):
+    def __init__(self, x=100, y=100, duration=0.2, interval=0.2, write='',
+                 hk1='', hk2='', hk3='', hk4='', path='', image='', delaytime=120,
+                 start_time=time.time(), end_delay=0, confidence=0.75):
         self.x = x
         self.y = y
         self.duration = duration
@@ -35,6 +35,7 @@ class Autogui:
         self.delaytime = delaytime
         self.start_time = start_time
         self.end_delay = end_delay
+        self.confidence = confidence
 
     # 開始定例文
     def do_start(self):
@@ -59,7 +60,7 @@ class Autogui:
     def move(self):
         try:
             pos = pag.locateOnScreen('images/'+self.image,
-                                     grayscale=True, confidence=0.75)
+                                     grayscale=True, confidence=self.confidence)
             self.x, self.y = pag.center(pos)
             print('%20s' % ('Pointer Move |'),
                   f'{self.x, self.y},', 'images/' + self.image)
@@ -72,7 +73,7 @@ class Autogui:
     def click(self):
         try:
             pos = pag.locateOnScreen('images/'+self.image,
-                                     grayscale=True, confidence=0.75)
+                                     grayscale=True, confidence=self.confidence)
             self.x, self.y = pag.center(pos)
             print('%20s' % ('Click Left |'),
                   f'{self.x, self.y},', 'images/' + self.image)
@@ -123,7 +124,7 @@ class Autogui:
         start = time.time()
         while time.time()-start <= self.delaytime:
             pos = pag.locateOnScreen('images/'+self.image,
-                                     grayscale=True, confidence=0.75)
+                                     grayscale=True, confidence=self.confidence)
             if pos is None:
                 self.wait(fromdelay=1)
                 continue
@@ -150,8 +151,7 @@ class Autogui:
 
 
 def rupag():
-
-    Autogui().do_start()
+    Autogui().do_start()    # 開始時のみ、連続利用時はカット
 
     # class 実施例
     gui = Autogui(interval=2, write='test menu').pbar()
@@ -173,18 +173,6 @@ def rupag():
     Autogui(end_delay=300).do_end()
 
 
-def demo1():
-
-    Autogui().do_start()
-
-    gui = Autogui(interval=2, write='test menu').pbar()
-    gui = Autogui(500, 500, image='chrome.png').move()
-    gui = Autogui(500, 500, image='chrome.png').click()
-
-    Autogui().do_end()
-
-
 if __name__ == "__main__":
 
     rupag()
-    # demo1()
