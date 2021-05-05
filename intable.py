@@ -9,9 +9,7 @@ import math
 
 def rupag_csv():
 
-    print('')
-    print('   |', 'Python    : ', sys.version)
-    print('   |', 'PyAutoGUI : ', pag.__version__)
+    Autogui().do_start()
 
     # CSV input 実施例
     try:
@@ -66,9 +64,7 @@ def rupag_csv():
         if in_func == 'pbar':
             gui.pbar()
 
-    print('')
-    print('Total time :', round(time.time()-start, 2), 'sec')
-    print('')
+    Autogui().do_end()
 
 
 if __name__ == "__main__":

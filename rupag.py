@@ -20,7 +20,7 @@ class Autogui:
     # 初期化
     def __init__(self, x=100, y=100, duration=0.2, interval=0.2,
                  write='', hk1='', hk2='', hk3='', hk4='', path='',
-                 image='', delaytime=120):
+                 image='', delaytime=120, start_time=time.time(), end_delay=0):
         self.x = x
         self.y = y
         self.duration = duration
@@ -33,6 +33,27 @@ class Autogui:
         self.path = path
         self.image = image
         self.delaytime = delaytime
+        self.start_time = start_time
+        self.end_delay = end_delay
+
+    # 開始定例文
+    def do_start(self):
+        print('')
+        print('   |', 'Python    : ', sys.version)
+        print('   |', 'PyAutoGUI : ', pag.__version__)
+        print('')
+        start_time = time.time()
+
+    # 終了定例文
+    def do_end(self):
+        print('')
+        print('   |', 'Total time :', round(
+            time.time()-self.start_time, 2), 'sec')
+        if self.end_delay != 0:
+            print('   |',
+                  f'Hold the result for {self.end_delay} seconds...   - Press "Ctrl + C" to exit. -')
+        print('')
+        time.sleep(self.end_delay)
 
     # マウス・移動
     def move(self):
@@ -130,14 +151,9 @@ class Autogui:
 
 def rupag():
 
-    print('')
-    print('   |', 'Python    : ', sys.version)
-    print('   |', 'PyAutoGUI : ', pag.__version__)
-    print('')
+    Autogui().do_start()
 
     # class 実施例
-    start = time.time()
-
     gui = Autogui(interval=2, write='test menu').pbar()
     gui = Autogui(500, 500).move()
     gui = Autogui(500, 600).move()
@@ -154,21 +170,18 @@ def rupag():
     gui = Autogui(700, 600).click()
     gui = Autogui(write='qwertyuiop').keybord()
 
-    print('')
-    print('Total time :', round(time.time()-start, 2), 'sec')
-    print('')
+    Autogui(end_delay=300).do_end()
 
 
 def demo1():
 
-    print('')
-    print('   |', 'Python    : ', sys.version)
-    print('   |', 'PyAutoGUI : ', pag.__version__)
-    print('')
+    Autogui().do_start()
 
     gui = Autogui(interval=2, write='test menu').pbar()
     gui = Autogui(500, 500, image='chrome.png').move()
     gui = Autogui(500, 500, image='chrome.png').click()
+
+    Autogui().do_end()
 
 
 if __name__ == "__main__":
