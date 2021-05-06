@@ -8,7 +8,8 @@ import datetime
 import calendar
 import pandas as pd
 import math
-import platform
+import platform    # 使用していない？
+import threading
 
 
 class Autogui:
