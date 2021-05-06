@@ -98,7 +98,7 @@ class Autogui:
     # アプリケーション実行
     def do_exe(self):
         print('%20s' % ('Path |'), f'{self.path}')
-        runroop = subprocess.Popen(f"{self.path}", shell=True)
+        subprocess.Popen(f"{self.path}", shell=True)
 
     # ディレイ・一定時間マウスグルグル
     def wait(self, fromdelay=0):
