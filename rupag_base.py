@@ -1,4 +1,5 @@
 from rupag import Autogui
+from rupag import thread2
 import pyautogui as pag
 import sys
 import os
@@ -8,9 +9,7 @@ import math
 
 
 def rupag_base():
-    Autogui().do_start()    # 開始時のみ、連続利用時はカット
     # ↓ ↓ ↓ 以下を 自由に 書き直してください  ↓ ↓ ↓
-
     Autogui(interval=2, write='test menu').pbar()
     Autogui(500, 500).move()
     Autogui(500, 600).move()
@@ -25,11 +24,15 @@ def rupag_base():
     Autogui(hk1='Altleft', hk2='f4').hotkey()
     Autogui(700, 600).click()
     Autogui(write='qwertyuiop ').keybord()
-
-    # ↑ ↑ ↑ ここまで  ↑ ↑ ↑
-    Autogui(end_delay=300).do_end()
+    # ↑ ↑ ↑ ここまで                        ↑ ↑ ↑
 
 
 if __name__ == "__main__":
 
+    Autogui().do_start()
+
+    # ↓ ↓ ↓ 以下を 自由に 書き直してください  ↓ ↓ ↓
     rupag_base()
+    # ↑ ↑ ↑ ここまで                        ↑ ↑ ↑
+
+    Autogui(end_delay=300).do_end()
