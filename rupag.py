@@ -8,7 +8,9 @@ import datetime
 import calendar
 import pandas as pd
 import math
-import platform
+import platform    # 使用していない？
+import threading
+from multiprocessing import Process
 
 
 class Autogui:
@@ -101,6 +103,11 @@ class Autogui:
         runroop = subprocess.Popen(f"{self.path}", shell=True)
 
     # ディレイ・一定時間マウスグルグル
+    def sleep(self):
+        print('%20s' % ('Sleep |'), self.interval, 'sec')
+        time.sleep(self.interval)
+
+    # ディレイ・一定時間マウスグルグル
     def wait(self, fromdelay=0):
         if fromdelay == 0:
             print('%20s' % ('Wait |'), self.interval, 'sec')
@@ -150,9 +157,25 @@ class Autogui:
         print('%20s' % ('Progress Bar |'), f'{self.write}')
 
 
-def rupag():
-    Autogui().do_start()    # 開始時のみ、連続利用時はカット
+# 2thread 並行起動
+def thread2(thre1, thre2):
+    th1 = threading.Thread(target=thre1)
+    th2 = threading.Thread(target=thre2)
+    th1.start()
+    th2.start()
 
+
+# 2process 並列処理
+def process2(proc1, proc2):
+    pr1 = Process(target=proc1)
+    pr2 = Process(target=proc2)
+    pr2.start()
+    # pr1.start()
+    proc1
+    # proc2 を動かし、proc1はproc2の後に 普通に動作させれば 同時になる？
+
+
+def rupag():
     # class 実施例
     Autogui(interval=2, write='test menu').pbar()
     Autogui(500, 500).move()
@@ -169,9 +192,13 @@ def rupag():
     Autogui(700, 600).click()
     Autogui(write='qwertyuiop ').keybord()
 
-    Autogui(end_delay=300).do_end()
-
 
 if __name__ == "__main__":
 
+    Autogui().do_start()
+
+    # ↓ ↓ ↓ 以下を 自由に 書き直してください  ↓ ↓ ↓
     rupag()
+    # ↑ ↑ ↑ ここまで                        ↑ ↑ ↑
+
+    Autogui(end_delay=300).do_end()
