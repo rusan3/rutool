@@ -97,6 +97,17 @@ class Autogui:
         time.sleep(self.interval)
         pag.hotkey(self.hk1, self.hk2, self.hk3, self.hk4)
 
+    # キーボード・Keydown継続（キー押しながら別キー）
+    def hotkey(self):
+        if self.hk4 == '':
+            if self.hk3 == '':
+                print('%20s' % ('Keydown |'),
+                      f'{self.hk1}, + (', f'{self.hk2},' end=')\n')
+#        print('%20s' % ('Keydown |'),
+#              f'{self.hk1},', f'{self.hk2},' f'{self.hk3},', f'{self.hk4}')
+        time.sleep(self.interval)
+        pag.hotkey(self.hk1, self.hk2, self.hk3, self.hk4)
+
     # アプリケーション実行
     def do_exe(self):
         print('%20s' % ('Path |'), f'{self.path}')
