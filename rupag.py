@@ -21,17 +21,17 @@ class Autogui:
 
     # 初期化
     def __init__(self, x=100, y=100, duration=0.2, interval=0.2, write='',
-                 hk1='', hk2='', hk3='', hk4='', path='', image='', delaytime=120,
+                 key1='', key2='', key3='', key4='', path='', image='', delaytime=120,
                  start_time=time.time(), end_delay=0, confidence=0.75):
         self.x = x
         self.y = y
         self.duration = duration
         self.interval = interval
         self.write = write
-        self.hk1 = hk1
-        self.hk2 = hk2
-        self.hk3 = hk3
-        self.hk4 = hk4
+        self.key1 = key1
+        self.key2 = key2
+        self.key3 = key3
+        self.key4 = key4
         self.path = path
         self.image = image
         self.delaytime = delaytime
@@ -41,21 +41,17 @@ class Autogui:
 
     # 開始定例文
     def do_start(self):
-        print('')
-        print('   |', 'Python    : ', sys.version)
-        print('   |', 'PyAutoGUI : ', pag.__version__)
-        print('')
+        print('\n   |', 'Python    : ', sys.version)
+        print('   |', 'PyAutoGUI : ', pag.__version__, end='\n\n')
         start_time = time.time()
 
     # 終了定例文
     def do_end(self):
-        print('')
-        print('   |', 'Total time :', round(
+        print('\n   |', 'Total time :', round(
             time.time()-self.start_time, 2), 'sec')
         if self.end_delay != 0:
             print('   |',
-                  f'Hold the result for {self.end_delay} seconds...   - Press "Ctrl + C" to exit. -')
-        print('')
+                  f'Hold the result for {self.end_delay} seconds...   - Press "Ctrl + C" to exit. -', end='\n\n')
         time.sleep(self.end_delay)
 
     # マウス・移動
@@ -92,21 +88,70 @@ class Autogui:
 
     # キーボード・ホットキー（同時押し）
     def hotkey(self):
-        print('%20s' % ('Hotkey 1to4 |'),
-              f'{self.hk1},', f'{self.hk2},' f'{self.hk3},', f'{self.hk4}')
+        print('%20s' % ('Hotkey |'), end='')
+        if self.key4 == '':
+            if self.key3 == '':
+                print(f' {self.key1} + {self.key2}', end=' \n')
+            else:
+                print(f' {self.key1} + {self.key2} + {self.key3}', end=' \n')
+        else:
+            print(
+                f' {self.key1} + {self.key2} + {self.key3} + {self.key4}', end=' \n')
         time.sleep(self.interval)
-        pag.hotkey(self.hk1, self.hk2, self.hk3, self.hk4)
+        pag.hotkey(self.key1, self.key2, self.key3, self.key4)
 
-    # キーボード・Keydown継続（キー押しながら別キー）
-    def hotkey(self):
-        if self.hk4 == '':
-            if self.hk3 == '':
-                print('%20s' % ('Keydown |'),
-                      f'{self.hk1}, + (', f'{self.hk2},' end=')\n')
-#        print('%20s' % ('Keydown |'),
-#              f'{self.hk1},', f'{self.hk2},' f'{self.hk3},', f'{self.hk4}')
+    # キーボード・Keyhold継続（キー押しながら別キー）
+    def holdkey(self):
+        sltime = 0.1
+        print('%20s' % ('Hold Key |'), end='')
         time.sleep(self.interval)
-        pag.hotkey(self.hk1, self.hk2, self.hk3, self.hk4)
+        if self.key4 == '':
+            if self.key3 == '':
+                print(f' {self.key1} + ( {self.key2}', end=' )\n')
+                pag.keyDown(self.key1)
+                time.sleep(sltime)
+                pag.press(self.key2)
+                time.sleep(sltime)
+                pag.keyUp(self.key1)
+            else:
+                print(f' {self.key1} + ( {self.key2}, {self.key3}', end=' )\n')
+                pag.keyDown(self.key1)
+                time.sleep(sltime)
+                pag.press(self.key2)
+                time.sleep(sltime)
+                pag.press(self.key3)
+                time.sleep(sltime)
+                pag.keyUp(self.key1)
+        else:
+            print(
+                f' {self.key1} + ( {self.key2}, {self.key3}, {self.key4}', end=' )\n')
+            pag.keyDown(self.key1)
+            time.sleep(sltime)
+            pag.press(self.key2)
+            time.sleep(sltime)
+            pag.press(self.key3)
+            time.sleep(sltime)
+            pag.press(self.key4)
+            time.sleep(sltime)
+            pag.keyUp(self.key1)
+
+    # キーボード・キーダウン（holdkey では足りない場合は 解除まで keydown）
+    def keydown(self):
+        print('%20s' % ('Key Down |'), f'{self.key1}')
+        time.sleep(self.interval)
+        pag.keyDown(self.key1)
+
+    # キーボード・キーアップ（keydown と 併用する）
+    def keyup(self):
+        print('%20s' % ('Key Up |'), f'{self.key1}')
+        time.sleep(self.interval)
+        pag.keyUp(self.key1)
+
+    # キーボード・キーアップ（keydown/keyup と 併用する）
+    def press(self):
+        print('%20s' % ('Press |'), f'{self.key1}')
+        time.sleep(self.interval)
+        pag.press(self.key1)
 
     # アプリケーション実行
     def do_exe(self):
@@ -164,8 +209,7 @@ class Autogui:
                                                   int((i+1)*(self.interval/10)),
                                                   self.interval), end='')
             time.sleep(self.interval/10)
-        print('')
-        print('%20s' % ('Progress Bar |'), f'{self.write}')
+        print('\n%20s' % ('Progress Bar |'), f'{self.write}')
 
 
 # 2thread 並行起動
@@ -196,10 +240,34 @@ def rupag():
     Autogui(700, 500).move()
     Autogui(700, 600).move()
     Autogui(700, 600).click()
+
     Autogui(path='C:\Program Files\Google\Chrome\Application\chrome.exe').do_exe()
+    Autogui(interval=0.2).sleep()
+    Autogui(path='C:\Program Files\Google\Chrome\Application\chrome.exe').do_exe()
+    Autogui(interval=0.2).sleep()
+    Autogui(path='C:\Program Files\Google\Chrome\Application\chrome.exe').do_exe()
+    Autogui(interval=0.2).sleep()
     Autogui(interval=2).wait()
     Autogui(delaytime=30, interval=3, image='chrome.png').delay()
-    Autogui(hk1='Altleft', hk2='f4').hotkey()
+    Autogui(key1='Altleft', key2='f4', key3='f4', key4='f4').holdkey()
+
+    Autogui(path='C:\Program Files\Google\Chrome\Application\chrome.exe').do_exe()
+    Autogui(interval=0.2).sleep()
+    Autogui(path='C:\Program Files\Google\Chrome\Application\chrome.exe').do_exe()
+    Autogui(interval=0.2).sleep()
+    Autogui(path='C:\Program Files\Google\Chrome\Application\chrome.exe').do_exe()
+    Autogui(interval=0.2).sleep()
+    Autogui(interval=2).wait()
+    Autogui(delaytime=30, interval=3, image='chrome.png').delay()
+    Autogui(key1='Altleft').keydown()
+    Autogui(interval=0.2).sleep()
+    Autogui(key1='f4').press()
+    Autogui(interval=0.2).sleep()
+    Autogui(key1='f4').press()
+    Autogui(interval=0.2).sleep()
+    Autogui(key1='f4').press()
+    Autogui(interval=0.2).sleep()
+    Autogui(key1='Altleft').keyup()
     Autogui(700, 600).click()
     Autogui(write='qwertyuiop ').keybord()
 
