@@ -22,7 +22,7 @@ class Autogui:
     # 初期化
     def __init__(self, x=100, y=100, duration=0.2, interval=0.2, write='',
                  key1='', key2='', key3='', key4='', path='', image='', delaytime=120,
-                 start_time=time.time(), end_delay=0, confidence=0.75, posnone=0):
+                 start_time=time.time(), end_delay=0, confidence=0.75, posnone=1):
         self.x = x
         self.y = y
         self.duration = duration
@@ -198,10 +198,10 @@ class Autogui:
                 print('==>> Not Found... Quit')
                 quit()
             elif self.posnone == 1:     # 1 : その処理(関数)中止
-                print('==>> Not Found... Break!!')
-                # break
+                print('==>> Not Found... Return!!')
+                return
             elif self.posnone == 2:     # 2 : ディレイ後続行
-                print('==>> Not Found... End of Delay Time...',
+                print('==>> End of Delay Time...',
                       round(time.time()-start, 2), 'sec')
             else:                       # その他 : 完全停止
                 print('==>> Not Found... Quit')
