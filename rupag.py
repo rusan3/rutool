@@ -192,7 +192,6 @@ class Autogui:
             if pos is None:
                 self.wait(fromdelay=1)
                 continue
-            print('==>> OK! ', round(time.time()-start, 2), 'sec')
             break
         if pos is None:
             if self.posnone == 0:       # 0 : 完全停止
@@ -207,6 +206,8 @@ class Autogui:
             else:                       # その他 : 完全停止
                 print('==>> Not Found... Quit')
                 quit()
+        else:
+            print('==>> OK! ', round(time.time()-start, 2), 'sec')
 
     # ディレイ・プログレスバー
     def pbar(self):
