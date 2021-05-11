@@ -22,7 +22,7 @@ class Autogui:
     # 初期化
     def __init__(self, x=100, y=100, duration=0.2, interval=0.2, write='',
                  key1='', key2='', key3='', key4='', path='', image='', delaytime=120,
-                 start_time=time.time(), end_delay=0, confidence=0.75):
+                 start_time=time.time(), end_delay=0, confidence=0.75, posnone=0):
         self.x = x
         self.y = y
         self.duration = duration
@@ -38,6 +38,7 @@ class Autogui:
         self.start_time = start_time
         self.end_delay = end_delay
         self.confidence = confidence
+        self.posnone = posnone
 
     # 開始定例文
     def do_start(self):
@@ -194,8 +195,18 @@ class Autogui:
             print('==>> OK! ', round(time.time()-start, 2), 'sec')
             break
         if pos is None:
-            print('==>> Not Found... Quit')
-            quit()
+            if self.posnone == 0:       # 0 : 完全停止
+                print('==>> Not Found... Quit')
+                quit()
+            elif self.posnone == 1:     # 1 : その処理(関数)中止
+                print('==>> Not Found... Break!!')
+                # break
+            elif self.posnone == 2:     # 2 : ディレイ後続行
+                print('==>> Not Found... End of Delay Time...',
+                      round(time.time()-start, 2), 'sec')
+            else:                       # その他 : 完全停止
+                print('==>> Not Found... Quit')
+                quit()
 
     # ディレイ・プログレスバー
     def pbar(self):
@@ -221,13 +232,15 @@ def thread2(thre1, thre2):
 
 
 # 2process 並列処理
-def process2(proc1, proc2):
+def process2(proc1, proc2, interval):
+    def process2_wait(interval):
+        Autogui(interval).wait()
+        # Autogui(delaytime=30, interval=3, image='chrome.png').delay()
     pr1 = Process(target=proc1)
     pr2 = Process(target=proc2)
     pr2.start()
-    # pr1.start()
-    proc1
-    # proc2 を動かし、proc1はproc2の後に 普通に動作させれば 同時になる？
+    pr1.start()
+    process2_wait(interval)
 
 
 def rupag():
