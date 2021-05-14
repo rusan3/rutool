@@ -178,7 +178,7 @@ class Autogui:
                            duration=0.05)
                 if time.time()-start >= self.interval:
                     break
-            time.sleep(0.5)
+            time.sleep(2)
 
     # ディレイ・画像反応待ち（グルグル参照）
     def delay(self):
