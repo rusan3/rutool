@@ -230,12 +230,12 @@ class Autogui:
         ipconfig = ipconfig[:ipconfig.find('Wireless LAN adapter Wi-Fi:')]
         if ipconfig.find('jpn.mds.honda.com') >= 0:
             if ipconfig.find('PPP アダプター GYRO VPN') >= 0:
-                print('   |', "I'm telecommute now.", end='\n')
+                print('   |', "I'm telecommute now.", end='\n\n')
                 f_zaitaku = 1
             else:
-                print('   |', "I'm in the office, unfortunately.", end='\n')
+                print('   |', "I'm in the office, unfortunately.", end='\n\n')
         else:
-            print('   |', "I'm telecommute now.", end='\n')
+            print('   |', "I'm telecommute now.", end='\n\n')
             f_zaitaku = 1
         return f_zaitaku
 
