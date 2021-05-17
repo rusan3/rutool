@@ -178,7 +178,7 @@ class Autogui:
                            duration=0.05)
                 if time.time()-start >= self.interval:
                     break
-            time.sleep(0.5)
+            time.sleep(2)
 
     # ディレイ・画像反応待ち（グルグル参照）
     def delay(self):
@@ -223,6 +223,22 @@ class Autogui:
             time.sleep(self.interval/10)
         print('\n%20s' % ('Progress Bar |'), f'{self.write}')
 
+    def judge(self):
+        f_zaitaku = 0
+        ipconfig = subprocess.check_output(
+            "ipconfig", shell=True).decode('cp932')
+        ipconfig = ipconfig[:ipconfig.find('Wireless LAN adapter Wi-Fi:')]
+        if ipconfig.find('jpn.mds.honda.com') >= 0:
+            if ipconfig.find('PPP アダプター GYRO VPN') >= 0:
+                print('   |', "I'm telecommute now.", end='\n')
+                f_zaitaku = 1
+            else:
+                print('   |', "I'm in the office, unfortunately.", end='\n')
+        else:
+            print('   |', "I'm telecommute now.", end='\n')
+            f_zaitaku = 1
+        return f_zaitaku
+
 
 # 2thread 並行起動
 def thread2(thre1, thre2):
@@ -246,6 +262,9 @@ def process2(proc1, proc2, interval):
 
 def rupag():
     # class 実施例
+    zai = Autogui().judge()
+    if zai == 1:
+        return
     Autogui(interval=2, write='test menu').pbar()
     Autogui(500, 500).move()
     Autogui(500, 600).move()
