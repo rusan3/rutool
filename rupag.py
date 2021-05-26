@@ -22,7 +22,8 @@ class Autogui:
     # 初期化
     def __init__(self, x=100, y=100, duration=0.2, interval=0.2, write='',
                  key1='', key2='', key3='', key4='', path='', image='', delaytime=120,
-                 start_time=time.time(), end_delay=0, confidence=0.75, posnone=1):
+                 start_time=time.time(), end_delay=0, confidence=0.75, posnone=1,
+                 judgevpn='VPN', judge2='Wireless LAN adapter'):
         self.x = x
         self.y = y
         self.duration = duration
@@ -39,6 +40,7 @@ class Autogui:
         self.end_delay = end_delay
         self.confidence = confidence
         self.posnone = posnone
+        self.judgevpn = judgevpn
 
     # 開始定例文
     def do_start(self):
@@ -223,20 +225,24 @@ class Autogui:
             time.sleep(self.interval/10)
         print('\n%20s' % ('Progress Bar |'), f'{self.write}')
 
+    # 在宅・出社を ipconfig 記載の情報から判定する (トライ中)
     def judge(self):
-        f_zaitaku = 0
+        f_zaitaku = 1    # デフォフト 1 で 在宅にしておく
         ipconfig = subprocess.check_output(
             "ipconfig", shell=True).decode('cp932')
-        ipconfig = ipconfig[:ipconfig.find('Wireless LAN adapter Wi-Fi:')]
-        if ipconfig.find('jpn.mds.honda.com') >= 0:
-            if ipconfig.find('PPP アダプター GYRO VPN') >= 0:
-                print('   |', "I'm telecommute now.", end='\n\n')
-                f_zaitaku = 1
-            else:
-                print('   |', "I'm in the office, unfortunately.", end='\n\n')
-        else:
+        if ipconfig.find(self.judgevpn) >= 0:
             print('   |', "I'm telecommute now.", end='\n\n')
-            f_zaitaku = 1
+        else:
+            ipconfig2 = ipconfig[:ipconfig.find('Wireless LAN adapter')]
+            if ipconfig2.find(self.judge1) >= 0:    # 有線LAN接続時の DNSサフィックス で引っかける
+                print('   |', "I'm in the office, unfortunately.", end='\n\n')
+                f_zaitaku = 0
+            elif ipconfig2.find('メディアは接続されていません') >= 0:    # 有線LANを 繋いでいない
+                print('   |', "I'm in the office, unfortunately.", end='\n\n')
+                f_zaitaku = 0    # 出社時で Wi-Fiのみ 接続の場合
+                # 在宅で Wi-Fiのみ接続 は考慮していない･･･、ニーズがあったら足す
+            else:
+                print('   |', "I'm telecommute now.", end='\n\n')
         return f_zaitaku
 
 
