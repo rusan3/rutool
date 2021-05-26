@@ -23,7 +23,7 @@ class Autogui:
     def __init__(self, x=100, y=100, duration=0.2, interval=0.2, write='',
                  key1='', key2='', key3='', key4='', path='', image='', delaytime=120,
                  start_time=time.time(), end_delay=0, confidence=0.75, posnone=1,
-                 judgevpn='VPN', judge2='Wireless LAN adapter'):
+                 judgevpn='VPN', judge1='a.com'):
         self.x = x
         self.y = y
         self.duration = duration
@@ -41,6 +41,7 @@ class Autogui:
         self.confidence = confidence
         self.posnone = posnone
         self.judgevpn = judgevpn
+        self.judge1 = judge1
 
     # 開始定例文
     def do_start(self):
